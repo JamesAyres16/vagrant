@@ -9,7 +9,6 @@ Vagrant.configure("2") do |config|
     config.ssh.private_key_path = "~/.ssh/id_rsa"
 
     config.vm.provider :libvirt do |v|
-        v.qemu_use_session = false
         v.cpus = 4
         v.memory = 8192
     end
