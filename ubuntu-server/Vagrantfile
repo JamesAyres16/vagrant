@@ -1,12 +1,15 @@
 
-Vagrant.configure("2") do |config|
-    config.vm.box = "local/ubuntu-server"
-    config.vm.box_url = "~/dev/packer/ubuntu-server/builds/ubuntu-server.box"
-    config.vm.boot_timeout = 600
+box_name = "ubuntu-server"
+box_path = "~/dev/iac/packer/ubuntu-server"
 
-    config.ssh.username = "james"
-    config.ssh.insert_key = false
-    config.ssh.private_key_path = "~/.ssh/id_rsa"
+Vagrant.configure("2") do |config|
+    config.vm.box           = "local/#{box_name}"
+    config.vm.box_url       = "#{box_path}/builds/#{box_name}.box"
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+
+    config.ssh.username         = "james"
+    config.ssh.insert_key       = false
+    config.ssh.private_key_path = "#{box_path}/files/id_rsa"
 
     config.vm.provider :libvirt do |v|
         v.cpus = 4
